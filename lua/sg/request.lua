@@ -14,8 +14,7 @@ local function discover_sg_cody()
     }
     for _, path in ipairs(cmd_paths) do
       local res = rtfile(path, false)[1]
-      if res and os.execute(cmd) ~= 0 then
-        log.info("found sg-cody at " .. cmd)
+      if res and vim.fn.execute(cmd) ~= 1 then
         cmd = res
         break
       end
@@ -25,6 +24,7 @@ local function discover_sg_cody()
   if cmd == nil then
     error "Failed to load sg-cody: You probably did not run `cargo build --bin sg-cody`"
   end
+  log.info("found sg-cody at " .. cmd)
 
   return cmd
 end
