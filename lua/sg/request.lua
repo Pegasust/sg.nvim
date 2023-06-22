@@ -15,7 +15,7 @@ local function discover_sg_cody()
     for _, path in ipairs(cmd_paths) do
       local res = rtfile(path, false)[1]
       if res and os.execute(cmd) ~= 0 then
-        log.trace("found sg-cody at " .. cmd)
+        log.info("found sg-cody at " .. cmd)
         cmd = res
         break
       end
@@ -29,7 +29,7 @@ local function discover_sg_cody()
   return cmd
 end
 
-sg_cody_process = discover_sg_cody()
+local sg_cody_process = discover_sg_cody()
 
 local uv = vim.loop
 
