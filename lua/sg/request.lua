@@ -67,6 +67,7 @@ M.start = function(force)
     handle, pid = uv.spawn(sg_cody_process, {
       stdio = { stdin, stdout, stderr },
       env = {
+        "PATH=" .. vim.env.PATH,
         "SRC_ACCESS_TOKEN=" .. (vim.env.SRC_ACCESS_TOKEN or ""),
         "SRC_ENDPOINT=" .. (vim.env.SRC_ENDPOINT or ""),
       },
