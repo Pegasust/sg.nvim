@@ -12,7 +12,7 @@ local function discover_sg_cody()
     }
     for _, path in ipairs(cmd_paths) do
       local res = rtfile(path, false)[1]
-      if res then
+      if res and os.execute(cmd) ~= 1 then
         cmd = res
         break
       end
