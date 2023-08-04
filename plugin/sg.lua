@@ -33,6 +33,10 @@ vim.api.nvim_create_user_command("SourcegraphInfo", function()
 
   vim.cmd.vnew()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, contents)
+  vim.api.nvim_buf_set_option(0, "buflisted", false)
+  vim.api.nvim_buf_set_option(0, "bufhidden", "wipe")
+  vim.api.nvim_buf_set_option(0, "modifiable", false)
+  vim.api.nvim_buf_set_option(0, "modified", false)
 
   vim.schedule(function()
     print "... got sourcegraph info"
@@ -76,10 +80,11 @@ end, {
 --- want to set them via environment variables.
 ---@command ]]
 vim.api.nvim_create_user_command("SourcegraphLogin", function()
-  local env = require "sg.env"
+  local auth = require "sg.auth"
 
-  env.set_endpoint()
-  env.set_token()
+  auth.set_nvim_auth()
+
+  vim.notify "[sg-cody] Changes will come into effect after a restart"
 end, {
   desc = "Login and store credentials for later use (an alternative to the environment variables",
 })
